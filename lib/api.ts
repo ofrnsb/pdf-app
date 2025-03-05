@@ -1,11 +1,24 @@
 import { User } from '../types/user';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export async function fetchUsers(): Promise<User[]> {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users', {
-    cache: 'no-store',
-  });
+  try {
+    if (!API_URL) {
+      throw new Error('NEXT_PUBLIC_API_URL belum dikonfigurasi');
+    }
 
-  if (!res.ok) throw new Error('Gagal mengambil data pengguna');
+    const res = await fetch(`${API_URL}/users`, {
+      cache: 'no-store',
+    });
 
-  return res.json();
+    if (!res.ok) {
+      throw new Error(`Gagal mengambil data pengguna: ${res.statusText}`);
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
 }

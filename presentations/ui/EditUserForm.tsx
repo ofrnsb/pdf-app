@@ -13,6 +13,7 @@ import { useState } from 'react';
 import CustomSelect from './CustomSelect';
 import { FormField } from './FormField';
 
+import { EditUserFormProps } from '@/types/user';
 import {
   AddressIcon,
   CityIcon,
@@ -23,7 +24,6 @@ import {
 } from '../icons';
 import { PDFPreview } from './PDFPreview';
 import { UserProfilePDF } from './UserProfilePDF';
-import { EditUserFormProps } from '@/types/user';
 
 export const EditUserForm = ({ user }: EditUserFormProps) => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -98,7 +98,7 @@ export const EditUserForm = ({ user }: EditUserFormProps) => {
               </label>
               <CustomSelect template={template} setTemplate={setTemplate} />
             </div>
-            <div className='flex space-x-3'>
+            <div className='flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-3'>
               <Button
                 type='button'
                 onClick={() => setIsPreviewOpen(true)}
