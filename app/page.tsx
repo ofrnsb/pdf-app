@@ -3,25 +3,23 @@
 import { fetchUsers } from '@/lib/api';
 import UserList from '@/presentations/ui/UserList';
 import { User } from '@/types/user';
-import { Suspense, useEffect, useState } from 'react';
-
-async function UsersContent({ promise }: { promise: Promise<User[]> }) {
-  const users = await promise;
-  return <UserList users={users} />;
-}
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [users, setUsers] = useState<User[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [usersPromise, setUsersPromise] = useState<Promise<User[]> | null>(
-    null
-  );
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchPromise = fetchUsers().catch((err) => {
-      setError(err.message);
-      throw err;
-    });
-    setUsersPromise(fetchPromise);
+    fetchUsers()
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   if (error) {
@@ -47,16 +45,12 @@ export default function Home() {
         <h1 className='text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600'>
           Daftar Pengguna
         </h1>
-        {usersPromise && (
-          <Suspense
-            fallback={
-              <div className='flex justify-center items-center h-64'>
-                <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600'></div>
-              </div>
-            }
-          >
-            <UsersContent promise={usersPromise} />
-          </Suspense>
+        {loading ? (
+          <div className='flex justify-center items-center h-64'>
+            <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600'></div>
+          </div>
+        ) : (
+          users && <UserList users={users} />
         )}
       </div>
     </div>
