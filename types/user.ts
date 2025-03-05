@@ -56,4 +56,8 @@ export interface UserListProps {
   users: User[];
 }
 
+export interface ErrorProps {
+  message: string;
+  onRetry?: () => void;
+}
 export type IconType = FC<{ className?: string }>;
