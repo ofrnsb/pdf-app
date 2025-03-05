@@ -1,4 +1,3 @@
-// CustomSelect.tsx
 import { CustomSelectProps } from '@/types/user';
 import { useEffect, useRef, useState } from 'react';
 
@@ -15,7 +14,6 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     { value: 'detailed', label: 'Template Detil' },
   ];
 
-  // Efek untuk menutup dropdown saat klik di luar
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -30,13 +28,12 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Efek untuk memberi tahu parent saat isOpen berubah
   useEffect(() => {
     onToggle?.(isOpen);
   }, [isOpen, onToggle]);
 
   const handleToggle = () => {
-    setIsOpen((prev) => !prev); // Hanya ubah state lokal, onToggle dipanggil di useEffect
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -44,7 +41,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       <button
         type='button'
         onClick={handleToggle}
-        className='w-full bg-white border-2 border-gray-200 rounded-xl p-3 text-left flex items-center justify-between hover:border-blue-500 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+        className='w-full bg-white border-2 border-gray-200 rounded-xl p-3 text-left flex items-center justify-between hover:border-blue-500 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-200 cursor-pointer'
       >
         <span className='flex items-center space-x-2'>
           <span>

@@ -1,4 +1,3 @@
-// components/EditUserForm.tsx
 'use client';
 
 import { FormValues, useUserForm } from '@/applications/hooks/useUserForm';
@@ -91,7 +90,7 @@ export const EditUserForm = ({ user }: EditUserFormProps) => {
             placeholder='12345'
           />
 
-          <div className='bg-blue-50 p-6 rounded-2xl border border-blue-100 space-y-4'>
+          <div className='bg-blue-50 p-6 rounded-2xl border border-blue-100 space-y-4 '>
             <div>
               <label className='block text-sm font-semibold text-gray-700 mb-3'>
                 Pilih Template PDF
@@ -102,14 +101,14 @@ export const EditUserForm = ({ user }: EditUserFormProps) => {
               <Button
                 type='button'
                 onClick={() => setIsPreviewOpen(true)}
-                className='bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-6 py-3'
+                className='bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-6 py-3 mb-3 cursor-pointer'
               >
                 <EyeIcon className='h-5 w-5 mr-2' />
                 Pratinjau PDF
               </Button>
               <Button
                 type='submit'
-                className='bg-green-600 hover:bg-green-700 text-white rounded-xl px-6 py-3'
+                className='bg-green-600 hover:bg-green-700 text-white rounded-xl px-6 py-3 cursor-pointer'
               >
                 <DownloadIcon className='h-5 w-5 mr-2' />
                 Unduh PDF

@@ -1,4 +1,3 @@
-// components/PDFPreview.tsx
 import { Button } from '@/presentations/ui/button';
 import { PDFPreviewProps } from '@/types/user';
 import { PDFViewer } from '@react-pdf/renderer';

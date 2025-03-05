@@ -1,40 +1,29 @@
 'use client';
 
+import { fetchUserById } from '@/lib/api';
 import { EditUserForm } from '@/presentations/ui/EditUserForm';
 import { User } from '@/types/user';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function UserPage() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchUser() {
-      try {
-        setLoading(true);
-        setError(null);
+    if (!id) return;
 
-        const res = await fetch(
-          `https://jsonplaceholder.typicode.com/users/${id}`
-        );
+    setLoading(true);
+    setError(null);
 
-        if (!res.ok) {
-          throw new Error('Gagal mengambil data pengguna');
-        }
-
-        const data = await res.json();
-        setUser(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Terjadi kesalahan');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    if (id) fetchUser();
+    fetchUserById(id)
+      .then(setUser)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) {
